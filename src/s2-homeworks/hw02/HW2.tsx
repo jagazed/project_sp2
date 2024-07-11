@@ -3,21 +3,21 @@ import Affairs from './affairs/Affairs'
 import s2 from '../../s1-main/App.module.css'
 
 /*
-* 1 - описать типы AffairPriorityType, AffairType
-* 2 - указать нужный тип для defaultAffairs
+* 1 - описать типы AffairPriorityType, AffairType ++
+* 2 - указать нужный тип для defaultAffairs ++
 * 3 - дописать типы и логику функции filterAffairs и проверить её тестами
 * 4 - выполнить пункт 3 для функции deleteAffair
 * 5 - указать нужный тип в useState с affairs
 * 6 - дописать тип и логику функции deleteAffairCallback
-* 7 - в файле Affairs.tsx дописать типизацию пропсов
+* 7 - в файле Affairs.tsx дописать типизацию пропсов +/-
 * 8 - в файле Affairs.tsx дописать логику функций setAll, setHigh, setMiddle, setLow
-* 9 - в файле Affair.tsx дописать типизацию пропсов
+* 9 - в файле Affair.tsx дописать типизацию пропсов +/-
 * 10 - в файле Affair.tsx дописать функции deleteCallback и использовать
-* 11 - в файле Affair.tsx отобразить приходящие данные
+* 11 - в файле Affair.tsx отобразить приходящие данные +
 * */
 
 // types
-export type AffairPriorityType = 'high' | 'low' | 'middle' // need to fix any
+export type AffairPriorityType = 'low' | 'high' | 'middle'  // need to fix any
 export type AffairType = {
     _id: number // need to fix any
     name: string // need to fix any
@@ -52,9 +52,6 @@ function HW2() {
     const filteredAffairs = filterAffairs(affairs, filter)
     const deleteAffairCallback = (_id: number) => { // need to fix any
         // need to fix
-        const newAffairs = affairs.filter(t=> t._id !== _id)
-        setAffairs(newAffairs)
-        console.log("used2")
     }
 
     return (
