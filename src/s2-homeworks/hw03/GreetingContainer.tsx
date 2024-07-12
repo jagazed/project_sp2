@@ -9,20 +9,38 @@ type GreetingContainerPropsType = {
 
 export const pureAddUser = (name: string, setError: Dispatch<SetStateAction<string>>, setName: Dispatch<SetStateAction<string>>, addUserCallback: (name: string) => void) => {
     // если имя пустое - показать ошибку, иначе - добавить юзера и очистить инпут
-    console.log("use")
-    addUserCallback(name)
-
+    // if (name.trim() === '') {
+    //     setError('Ошибка! Введите имя!')
+    // }
+    // if (name.length === 0 || name.trim() === '') {
+    //     setError('Ошибка! Введите имя!')
+    //     setName('')
+    // } else {
+    //     addUserCallback(name.trim())
+    //     setName('')
+    // }
+    if (name.trim().length === 0 && !/[0-9]/.test(name)) {
+        setError('Ошибка! Введите имя!')
+        //setName('')
+    }  else {
+        addUserCallback(name.trim())
+        setName('')
+    }
+    //setName(name)
 }
 
 export const pureOnBlur = (name: string, setError: Dispatch<SetStateAction<string>>) => {
     // если имя пустое - показать
     // ошибку
     if (name.trim() === '') {
-        setError('Ошибка ввидеть имя')
+        setError('Ошибка! Введите имя!')
     }
 }
 
 export const pureOnEnter = (e: KeyboardEvent<HTMLInputElement>, addUser: ()=> void) => {
+    // if (e.currentTarget.value.trim() !== '' && e.key === 'Enter'){
+    //     addUser()
+    // }
     if (e.key === 'Enter'){
         addUser()
     }
@@ -46,6 +64,11 @@ const GreetingContainer: React.FC<GreetingContainerPropsType> = ({
         error && setError('')
     }
     const addUser = () => {
+        // if (!/[0-9]/.test(name)) {
+        //     pureAddUser(name, setError, setName, addUserCallback)
+        // } else {
+        //     setError('Ошибка! Введите имя!')
+        // }
         pureAddUser(name, setError, setName, addUserCallback)
     }
 
