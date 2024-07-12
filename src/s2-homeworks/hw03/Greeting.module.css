@@ -5,15 +5,20 @@
 }
 
 .error {
+    color: red;
+
 }
 
 .input {
+    font-weight: bold;
 }
 
 .input:focus {
 }
 
 .errorInput {
+
+    border-color: red;
 }
 
 .button {
@@ -32,4 +37,5 @@
 }
 
 .greeting {
+    background-color: darkred;
 }

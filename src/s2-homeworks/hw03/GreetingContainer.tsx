@@ -19,14 +19,27 @@ export const pureAddUser = (name: string, setError: Dispatch<SetStateAction<stri
     //     addUserCallback(name.trim())
     //     setName('')
     // }
-    if (name.trim().length === 0 && !/[0-9]/.test(name)) {
-        setError('Ошибка! Введите имя!')
-        //setName('')
-    }  else {
-        addUserCallback(name.trim())
-        setName('')
+
+
+    // if (name.trim().length === 0 && !/[0-9]/.test(name)) {
+    //     setError('Ошибка! Введите имя!')
+    //     //setName('')
+    // }  else {
+    //     addUserCallback(name.trim())
+    //     setName('')
+    // }
+
+    //const trimmedName = name.trim();
+    if (name.trim().length === 0) {
+        setError('Ошибка! Введите имя!');
+        setName(name);
+    } else {
+        addUserCallback(name.trim());
+        setName('');
+        setError('');
     }
-    //setName(name)
+
+
 }
 
 export const pureOnBlur = (name: string, setError: Dispatch<SetStateAction<string>>) => {
@@ -57,6 +70,7 @@ const GreetingContainer: React.FC<GreetingContainerPropsType> = ({
     // деструктуризация пропсов
     const [name, setName] = useState<string>('') // need to fix any
     const [error, setError] = useState<string>('') // need to fix any
+    const [lastUserName, setLastUserName] = useState<string>('')
 
     const setNameCallback = (e: ChangeEvent<HTMLInputElement>) => { // need to fix any
         setName(e.currentTarget.value) // need to fix
@@ -70,6 +84,7 @@ const GreetingContainer: React.FC<GreetingContainerPropsType> = ({
         //     setError('Ошибка! Введите имя!')
         // }
         pureAddUser(name, setError, setName, addUserCallback)
+        setLastUserName(name)
     }
 
     const onBlur = () => {
@@ -81,7 +96,7 @@ const GreetingContainer: React.FC<GreetingContainerPropsType> = ({
     }
 
     const totalUsers = users.length // need to fix
-    const lastUserName = name// need to fix
+    //const lastUserName = name  // need to fix
 
     return (
         <Greeting
