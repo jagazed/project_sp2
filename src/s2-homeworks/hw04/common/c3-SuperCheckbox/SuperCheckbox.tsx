@@ -1,7 +1,7 @@
 import React, {
     ChangeEvent,
     DetailedHTMLProps,
-    InputHTMLAttributes, useState,
+    InputHTMLAttributes,
 } from 'react'
 import s from './SuperCheckbox.module.css'
 
