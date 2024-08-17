@@ -8,15 +8,20 @@
 }
 
 .nav {
+    font-size: 22px;
 }
 
 .nav a {
+    color: #000;
+    margin-left: 5px;
 }
 
 .nav a:hover {
 }
 
 .nav a.active {
+    color: #0059B2;
+;
 }
 .close {
 }
