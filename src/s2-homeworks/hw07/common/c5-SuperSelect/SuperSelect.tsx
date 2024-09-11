@@ -1,7 +1,7 @@
 import React, {
     SelectHTMLAttributes,
     DetailedHTMLProps,
-    ChangeEvent, useState,
+    ChangeEvent,
 } from 'react'
 import s from './SuperSelect.module.css'
 
