@@ -19,6 +19,7 @@ const HW13 = () => {
     const [text, setText] = useState('')
     const [info, setInfo] = useState('')
     const [image, setImage] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
 
     const send = (x?: boolean | null) => () => {
         const url =
@@ -26,22 +27,44 @@ const HW13 = () => {
                 ? 'https://xxxxxx.ccc' // имитация запроса на не корректный адрес
                 : 'https://samurai.it-incubator.io/api/3.0/homework/test'
 
-        setCode('')
-        setImage('')
-        setText('')
-        setInfo('...loading')
+        //setCode(data.error)
+        //setImage('')
+        //setText('')
+        //setInfo('...loading')
+        setIsLoading(true)
+
 
         axios
-            .post(url, {success: x})
+            .post(url, {success: x })
             .then((res) => {
-                setCode('Код 200!')
                 setImage(success200)
-                // дописать
-
+                setCode('Код 200')
+                setText(res.data.errorText)
+                setInfo(res.data.info)
             })
             .catch((e) => {
                 // дописать
-
+                if (x === null) {
+                    setImage(errorUnknown)
+                    setCode('Error!')
+                    setText(e.data?.errorText || 'Network Error')
+                    setInfo(e.data?.info || 'AxiosError')
+                }
+                else if ( x === undefined) {
+                    setImage(error400)
+                    setCode('Ошибка 400!')
+                    setText(e.data?.errorText || 'Ты не отправил success в body вообще!')
+                    setInfo(e.data?.info || 'ошибка 400 - обычно означает что скорее всего фронт отправил что-то не то на бэк!')
+                }
+                else {
+                    setImage(error500)
+                    setCode('Ошибка 500!')
+                    setText(e.data?.errorText || 'эмитация ошибки на сервере')
+                    setInfo(e.data?.info || 'ошибка 500 - обычно означает что что-то сломалось на сервере, например база данных)')
+                }
+            })
+            .finally(() =>{
+                setIsLoading(false)
             })
     }
 
@@ -55,6 +78,7 @@ const HW13 = () => {
                         id={'hw13-send-true'}
                         onClick={send(true)}
                         xType={'secondary'}
+                        disabled={isLoading}
                         // дописать
 
                     >
@@ -65,6 +89,7 @@ const HW13 = () => {
                         onClick={send(false)}
                         xType={'secondary'}
                         // дописать
+                        disabled={isLoading}
 
                     >
                         Send false
@@ -73,6 +98,7 @@ const HW13 = () => {
                         id={'hw13-send-undefined'}
                         onClick={send(undefined)}
                         xType={'secondary'}
+                        disabled={isLoading}
                         // дописать
 
                     >
@@ -82,6 +108,7 @@ const HW13 = () => {
                         id={'hw13-send-null'}
                         onClick={send(null)} // имитация запроса на не корректный адрес
                         xType={'secondary'}
+                        disabled={isLoading}
                         // дописать
 
                     >
