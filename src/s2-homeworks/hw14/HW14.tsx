@@ -34,12 +34,18 @@ const HW14 = () => {
         setLoading(true)
         getTechs(value)
             .then((res) => {
-                // делает студент
-
-                // сохранить пришедшие данные
-
-                //
+                if (res && res.data && res.data.techs) {
+                    setTechs(res.data.techs);
+                } else {
+                    console.error('No data received');
+                }
             })
+            .catch((e) => {
+                alert(e.response?.data?.errorText || e.message);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }
 
     const onChangeText = (value: string) => {
@@ -47,7 +53,9 @@ const HW14 = () => {
         // делает студент
 
         // добавить/заменить значение в квери урла
-        // setSearchParams(
+        const newSearchParams = new URLSearchParams(searchParams)
+        newSearchParams.set('find', value)
+        setSearchParams(newSearchParams)
 
         //
     }

@@ -51,22 +51,28 @@ const HW15 = () => {
         setLoading(true)
         getTechs(params)
             .then((res) => {
-                // делает студент
-
-                // сохранить пришедшие данные
-
-                //
+                if (res && res.data && res.data.techs) {
+                    setTechs(res.data.techs);
+                } else {
+                    console.error('No data received');
+                }
             })
+            .catch((e) => {
+                alert(e.response?.data?.errorText || e.message);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }
 
     const onChangePagination = (newPage: number, newCount: number) => {
         // делает студент
 
-        // setPage(
-        // setCount(
+        setPage(newPage)
+        setCount(newCount)
 
-        // sendQuery(
-        // setSearchParams(
+        sendQuery({page: newPage, count: newCount, sort})
+        setSearchParams({page: newPage.toString(), count: newCount.toString(), sort})
 
         //
     }
@@ -74,11 +80,11 @@ const HW15 = () => {
     const onChangeSort = (newSort: string) => {
         // делает студент
 
-        // setSort(
-        // setPage(1) // при сортировке сбрасывать на 1 страницу
+        setSort(newSort)
+        setPage(1) // при сортировке сбрасывать на 1 страницу
 
-        // sendQuery(
-        // setSearchParams(
+        sendQuery({page: 1, count, sort: newSort})
+        setSearchParams({page: '1', count: count.toString(), sort: newSort})
 
         //
     }
@@ -86,8 +92,9 @@ const HW15 = () => {
     useEffect(() => {
         const params = Object.fromEntries(searchParams)
         sendQuery({page: params.page, count: params.count})
-        setPage(+params.page || 1)
-        setCount(+params.count || 4)
+        setPage(+params.page || page) //1
+        setCount(+params.count || count) //4
+        setSort(params.sort || sort)
     }, [])
 
     const mappedTechs = techs.map(t => (
@@ -107,15 +114,13 @@ const HW15 = () => {
             <div className={s2.hwTitle}>Homework #15</div>
 
             <div className={s2.hw}>
-                {idLoading && <div id={'hw15-loading'} className={s.loading}>Loading...</div>}
-
+                {idLoading && <div id={'hw15-loading'} className={s.loading}></div>}
                 <SuperPagination
                     page={page}
                     itemsCountForPage={count}
                     totalCount={totalCount}
                     onChange={onChangePagination}
                 />
-
                 <div className={s.rowHeader}>
                     <div className={s.techHeader}>
                         tech
